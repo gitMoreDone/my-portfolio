@@ -1,13 +1,24 @@
 <template>
-    <h1>My Projects</h1>
-    <div v-if="isLoading">
-        <img src="../assets/loading.gif" alt="Page is Loading........" width="250">
-    </div>
-    <div v-else>
-        <h2 v-for="repos in repoData" :key="repos.id">{{ repos.id }} {{ repos.name }}
+    <div>
+        <h1>My Projects</h1>
+        <div v-if="hasError">{{ error }}</div>
+        <div v-if="isLoading">
+            <img src="../assets/loading.gif" alt="Page is Loading........" width="250">
+        </div>
+        <div v-else>
+            <div class="repos">
+                <RepoComponent v-for="repo in repoData" v-bind:key="repo.id"
+                :title="repo.name"
+                :html_url="repo.html_url"
+                :id="repo.id"
+                :image_url="`../assets/images/${repo.name}.png`"
+                class="column"
+                >
+            </RepoComponent>
 
-        </h2>
+            </div>
 
+        </div>
     </div>
 
 </template>
@@ -15,7 +26,11 @@
 
 <script>
 import GithubService from '@/services/GithubService';
+import RepoComponent from '@/components/RepoComponent.vue';
 export default {
+    components: {
+        RepoComponent
+    },
     data() {
         return {
             isLoading: true,
@@ -36,7 +51,7 @@ export default {
 
         })
         .finally(() => {
-            setTimeout(() => (this.isLoading = false), 1950);
+            setTimeout(() => (this.isLoading = false), 1100);
         })
     }
 }
