@@ -22,8 +22,8 @@ export default {
     },
     computed: {
         imgPath() {
-            if (this.title.includes('portfolio')){
-                return new URL("", import.meta.url);
+            if (this.title.includes('FinalCapstone')){
+                return new URL("../assets/project-images/sprout_garden_gaia.png", import.meta.url);
             }
             if (this.title.includes('demo')){
                 return new URL("", import.meta.url);
@@ -38,4 +38,7 @@ export default {
 </script>
 
 <style>
+.project {
+    width: 20px;
+}
 </style>
